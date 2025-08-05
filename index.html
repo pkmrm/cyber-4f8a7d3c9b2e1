@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secret Experience</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00bfff;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+      white-space: pre-wrap;
+      overflow: hidden;
+    }
+    #main, #continuePrompt, #videoContainer, #finalCode {
+      display: none;
+    }
+    .typing {
+      border-right: 2px solid #00bfff;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: #00bfff; }
+    }
+    .glitch {
+      color: #00bfff;
+      animation: glitch 1s infinite;
+    }
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 red; }
+      20% { text-shadow: -2px 0 blue; }
+      40% { text-shadow: 2px 2px green; }
+      60% { text-shadow: -2px -2px red; }
+      80% { text-shadow: 2px -2px blue; }
+      100% { text-shadow: none; }
+    }
+    button {
+      background-color: #00bfff;
+      color: black;
+      border: none;
+      padding: 10px;
+      font-family: inherit;
+      font-size: 16px;
+      margin: 10px;
+      cursor: pointer;
+    }
+    iframe {
+      width: 100%;
+      height: 480px;
+      margin-top: 20px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const password = "Tanasgol";
+    let input = prompt("🔒 Enter Password:");
+    if (input === password) {
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("main").style.display = "block";
+        typeText();
+      });
+    } else {
+      document.write("<h2 style='color:red'>Access Denied</h2>");
+    }
+
+    const introText = `There it is, a goodbye, you may think not, but we've been in it for a long time, not just us,\nthem\n\nLong live the dusty memories that became legends and either never happened or at least we didn't witness it\n\nIn an eternity for end, may time disappear and this world get some peace\n\nTo the start of the end and the end of start\nwhen endless words comes into ended starts\nwelcome to the dream of unreal lies\ndo not drown, nothing is real  Just reach the rope of oblivion.\n\neverything is just an Illusion\n`;
+
+    let index = 0;
+    function typeText() {
+      const display = document.getElementById("display");
+      let interval = setInterval(() => {
+        if (index < introText.length) {
+          display.textContent += introText[index];
+          index++;
+        } else {
+          clearInterval(interval);
+          document.getElementById("continuePrompt").style.display = "block";
+        }
+      }, 40);
+    }
+
+    function showVideo() {
+      document.getElementById("continuePrompt").style.display = "none";
+      document.getElementById("videoContainer").style.display = "block";
+    }
+
+    function showFinal() {
+      document.getElementById("videoContainer").style.display = "none";
+      document.getElementById("finalCode").style.display = "block";
+    }
+  </script>
+
+  <div id="main">
+    <div id="display" class="typing"></div>
+  </div>
+
+  <div id="continuePrompt">
+    <p class="glitch">Continue?</p>
+    <button onclick="showVideo()">Yes</button>
+    <button onclick="alert('Goodbye.')">No</button>
+  </div>
+
+  <div id="videoContainer">
+    <div style="width:100%; height:300px; background:#111; color:#00bfff; display:flex; align-items:center; justify-content:center;">[Video Placeholder]</div>
+    <button onclick="showFinal()">Finish</button>
+  </div>
+
+  <div id="finalCode">
+    <h1 class="glitch">End</h1>
+  </div>
+</body>
+</html>
