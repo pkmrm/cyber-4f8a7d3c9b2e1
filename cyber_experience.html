@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyber Experience</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: monospace;
+            background-color: #000;
+            color: #0ff;
+            overflow: hidden;
+        }
+        #lockScreen, #mainContent, #videoSection, #endMessage {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+        .glitch {
+            font-size: 1.2rem;
+            text-shadow: 0 0 2px #0ff, 0 0 10px #00f;
+            animation: glitch 1s infinite;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 0 0 2px #0ff; }
+            50% { text-shadow: 2px 0 #0ff, -2px 0 #f0f; }
+            100% { text-shadow: 0 0 2px #0ff; }
+        }
+        #passwordInput {
+            background: black;
+            border: 1px solid #0ff;
+            color: #0ff;
+            padding: 10px;
+            font-size: 1rem;
+        }
+        button {
+            background: black;
+            color: #0ff;
+            border: 1px solid #0ff;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        video {
+            width: 90vw;
+            max-height: 60vh;
+        }
+    </style>
+</head>
+<body>
+
+<div id="lockScreen" style="display: flex;">
+    <div>
+        <div class="glitch">Enter Access Code</div>
+        <input type="password" id="passwordInput" placeholder="Password">
+        <button onclick="checkPassword()">Enter</button>
+        <div id="wrongPassword" style="color: red; display: none; margin-top: 10px;">Access Denied</div>
+    </div>
+</div>
+
+<div id="mainContent">
+    <pre id="typingText" class="glitch"></pre>
+    <div id="prompt" style="display:none;">
+        <p>Continue? (Yes / No)</p>
+        <button onclick="startVideo()">Yes</button>
+        <button onclick="disablePrompt()">No</button>
+    </div>
+</div>
+
+<div id="videoSection">
+    <video id="cyberVideo" controls>
+        <source src="#" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+<div id="endMessage" class="glitch">End</div>
+
+<audio id="typingSound" src="https://www.fesliyanstudios.com/play-mp3/387" preload="auto"></audio>
+
+<script>
+    const correctPassword = "Tanasgol";
+    const typingText = `There it is, a goodbye, you may think not, but we've been in it for a long time, not just us, 
+them
+
+Long live the dusty memories that became legends and either never happened or at least we didn't witness it
+
+In an eternity for end ,may time disappear and this world get some peace 
+
+To the start of the end and the end of start 
+when endless words comes into ended starts
+welcome to the dream of unreal lies 
+do not drown, nothing is real  Just reach the rope of oblivion.
+
+everything is just an Illusion`;
+
+    function checkPassword() {
+        const input = document.getElementById('passwordInput').value;
+        if (input === correctPassword) {
+            document.getElementById('lockScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'flex';
+            typeText(typingText);
+        } else {
+            document.getElementById('wrongPassword').style.display = 'block';
+        }
+    }
+
+    function typeText(text) {
+        const element = document.getElementById('typingText');
+        const sound = document.getElementById('typingSound');
+        let i = 0;
+        const interval = setInterval(() => {
+            if (i < text.length) {
+                element.textContent += text[i];
+                sound.currentTime = 0;
+                sound.play();
+                i++;
+            } else {
+                clearInterval(interval);
+                document.getElementById('prompt').style.display = 'block';
+            }
+        }, 50);
+    }
+
+    function disablePrompt() {
+        document.getElementById('prompt').innerHTML = "<p>Session Terminated</p>";
+    }
+
+    function startVideo() {
+        document.getElementById('mainContent').style.display = 'none';
+        document.getElementById('videoSection').style.display = 'flex';
+        const video = document.getElementById('cyberVideo');
+        video.src = "https://drive.google.com/uc?export=download&id=178td5P0Um9IgkRkh_jXvlpGqUCWT23mO";
+        video.play();
+        video.onended = () => {
+            document.getElementById('videoSection').style.display = 'none';
+            document.getElementById('endMessage').style.display = 'flex';
+        };
+    }
+</script>
+</body>
+</html>
